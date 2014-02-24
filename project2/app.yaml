@@ -1,0 +1,21 @@
+application: pr620057315
+version: project1
+runtime: python27
+api_version: 1
+threadsafe: yes
+module: default
+
+handlers:
+- url: /(.*\.(appcache|manifest))
+  mime_type: text/cache-manifest
+  static_files: \1
+  upload: (.*\.(appcache|manifest))
+  expiration: "0m"
+
+
+- url: .*  # This regex directs all routes to main.app
+  script: main.app
+  
+libraries:
+- name: jinja2
+  version: 2.6

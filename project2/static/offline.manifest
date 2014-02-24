@@ -1,0 +1,24 @@
+CACHE MANIFEST
+
+CACHE:
+
+memory.css
+memory.js
+cardback.png
+club.png
+heart.png
+diamond.png
+spade.png
+finish.ogg
+flip_card.ogg
+applause.ogg
+boo.ogg
+match.ogg
+
+
+
+
+FALLBACK:
+
+NETWORK:
+*

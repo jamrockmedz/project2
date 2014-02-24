@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+
+<!--manifest={{ url_for('static', filename='offline.manifest') }} type="text/cache-manifest" -->
+<html lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <title>Memory Game</title>
+        <script src="{{ url_for('static', filename='memory.js') }}"></script>
+        <link rel="stylesheet" type"text/css" href="{{ url_for('static', filename='style.css') }}"/>
+</head>
+<body>
+<div id="save_row">
+<input value="Player Name" id="playerName" type="text"> 
+<input type="button" class="save" id="saveName" value="Update Player Name"> 
+<input type="button" class="save" id="saveGame" value="Save Game">
+</div>
+        
+
+<div class="flipper">
+
+    <div id="flip-front"><h1>Memory Card Game</h1></div>
+
+    <div id="flip-back">You have 24 peeks!</div>			
+
+</div>
+
+<br>
+<br>	
+<div id="game"></div>
+<div class="clear"></div>
+<br>
+<div id="button_holder"></div>
+
+</body>
+</html>

@@ -1,0 +1,9 @@
+{
+  "project_name" : "Flask web framework",
+  "project_description" : "Skeleton app based on Flask microframework (http://flask.pocoo.org/)",
+  "show_files": [
+    "main.py",
+    "templates/hello.html",
+    "static/robots.txt"
+  ]
+}
