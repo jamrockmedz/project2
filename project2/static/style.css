@@ -6,7 +6,10 @@
 	body{
         
         width: 960px;
-        background:turquoise;
+        background:url("http://th02.deviantart.net/fs70/PRE/f/2010/171/4/0/Paint_Splash_PNG_by_AbsurdWordPreferred.png") 100px 100px no-repeat,
+    turquoise;
+        background-position-y: bottom;
+        background-position-x: right;
 		margin:auto; 
 		text-align: center;
     }

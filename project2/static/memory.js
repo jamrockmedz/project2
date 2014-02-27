@@ -6,6 +6,7 @@ var currentGame;
 var q;
 var numTries;
 var pairedCards = [];
+var P;
 
 function attachEvent(element, type, handler)
 {
@@ -15,32 +16,72 @@ function attachEvent(element, type, handler)
 
 attachEvent(window,"load",setup);
 
+function newGame()
+{
+    generateDeck();
+    displayDeck();
+    numTries = 24;
+    pairedCards = [];
+    localStorage.removeItem("savedGame");
+    localStorage.removeItem("pairs");
+	document.getElementById("flip-back").innerHTML = "You have " + numTries + " flips!";
+	document.getElementById("flip-front").innerHTML = "<h1>Memory Card Game</h1>";
+}
+
+
+function loadGame()
+{
+    var gameData = JSON.parse(localStorage.getItem("savedGame"));
+    //var pairs = JSON.parse(localStorage.getItem("pairs"));
+  
+	currentGame.innerHTML = gameData[1];
+	numTries = gameData[0];
+	P = gameData[2];
+	
+	document.getElementById("flip-back").innerHTML = "You have " + numTries + " flips!";
+	document.getElementById("flip-front").innerHTML = "<h1>Memory Card Game</h1>";
+	pairedCards = currentGame.querySelectorAll(".p");
+}
+
 function setup()
 {
     currentGame = document.getElementById("game");
-    generateDeck();
-    displayDeck();
     
-    numTries = 24;
+    if(!localStorage.savedGame)
+	{ 
+	    newGame(); 
+	}
+	else
+	{ 
+	    loadGame(); 
+	}
+  
+  if(localStorage.playerName)
+	{ 
+    playerName = JSON.parse(localStorage.getItem("playerName"));
+    document.getElementById("playerName").value = playerName;
+    alert("Welcome back " + playerName + "!"); 
+	}
+	  
+    
 	applause = document.createElement('audio');
 	boo = document.createElement('audio');
 	match = document.createElement('audio');
+	flipSound = document.createElement('audio');
+	startSound = document.createElement('audio');
   
 	applause.setAttribute('src', 'static/applause.ogg');
 	boo.setAttribute('src', 'static/boo.ogg');
 	match.setAttribute('src', 'static/match.ogg');
-  
-	flipSound = document.createElement('audio');
 	flipSound.setAttribute('src', 'static/flip_card.ogg');
-	startSound = document.createElement('audio');
 	startSound.setAttribute('src', 'static/finish.ogg');
+	
 	startSound.play();
 	
 	document.getElementById("button_holder").innerHTML = "";
-	document.getElementById("flip-back").innerHTML = "You have " + numTries + " flips!";
-	document.getElementById("flip-front").innerHTML = "<h1>Memory Card Game</h1>";
 	attachEvent(document.getElementById("saveGame"), "click", saveGame);
 	attachEvent(document.getElementById("saveName"), "click", saveName);
+	attachEvent(document.getElementById("newGame"), "click", newGame);
     
     
 }
@@ -48,25 +89,37 @@ function setup()
 function saveName()
 {
 	var name = document.getElementById("playerName");
-	//var previousName = JSON.parse(localStorage.getItem("playerName"));
 	
 	if(!localStorage.playerName)
 	{
-		alert("previousName no");
 		localStorage.setItem("playerName", JSON.stringify([name.value]));
 	}
 	else
 	{
-		alert("previousName yes");
 		localStorage.playerName = JSON.stringify([name.value]);
 	}
-	//alert(previousName);
 	
 }
 
 function saveGame()
 {
-	alert(currentGame);
+    var game = document.getElementById("game").innerHTML;
+    var flips = numTries;
+    
+    var gameData = [flips, game, P];
+    
+	if(!localStorage.savedGame)
+	{
+		localStorage.setItem("savedGame", JSON.stringify(gameData));
+		//console.log(pairedCards);
+        //localStorage.setItem("pairs", JSON.stringify(pairedCards));
+	}
+	else
+	{
+		localStorage.savedGame = JSON.stringify(gameData);
+		
+        //localStorage.pairs = JSON.stringify(pairedCards);
+	}
 }
 
 
@@ -94,7 +147,6 @@ function R(a)
      */
     function Flip(t)
     {
-            // increase the counter and display it
         
 		if(numTries > 0)
 		{	
@@ -139,7 +191,6 @@ function R(a)
 							changeClassName(t,"p");
 							pairedCards.push(x);
 							pairedCards.push(t);
-							
 							P--;
 						}
 					}
@@ -185,7 +236,7 @@ function R(a)
 			document.getElementById("flip-front").innerHTML = "<h1>YOU LOSE!!!!</h1>";
 			boo.play();
 			var reset = document.getElementById("button_holder");
-			var button = '<button onclick="setup()" id="resetButton">START OVER!!!</button>';
+			var button = '<button onclick="newGame()" id="resetButton">START OVER!!!</button>';
 			reset.innerHTML = button;
 			
 		}
