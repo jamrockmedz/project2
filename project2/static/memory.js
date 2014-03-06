@@ -55,14 +55,6 @@ function setup()
 	{ 
 	    loadGame(); 
 	}
-  
-  if(localStorage.playerName)
-	{ 
-    playerName = JSON.parse(localStorage.getItem("playerName"));
-    document.getElementById("playerName").value = playerName;
-    alert("Welcome back " + playerName + "!"); 
-	}
-	  
     
 	applause = document.createElement('audio');
 	boo = document.createElement('audio');
@@ -70,26 +62,35 @@ function setup()
 	flipSound = document.createElement('audio');
 	startSound = document.createElement('audio');
   
-	applause.setAttribute('src', 'static/applause.ogg');
-	boo.setAttribute('src', 'static/boo.ogg');
-	match.setAttribute('src', 'static/match.ogg');
-	flipSound.setAttribute('src', 'static/flip_card.ogg');
-	startSound.setAttribute('src', 'static/finish.ogg');
+	applause.setAttribute('src', 'static/sound/applause.ogg');
+	boo.setAttribute('src', 'static/sound/boo.ogg');
+	match.setAttribute('src', 'static/sound/match.ogg');
+	flipSound.setAttribute('src', 'static/sound/flip_card.ogg');
+	startSound.setAttribute('src', 'static/sound/finish.ogg');
 	
 	startSound.play();
 	
-	document.getElementById("button_holder").innerHTML = "";
+	attachEvent(document.getElementById("saveNameButton"), "click", save);
 	attachEvent(document.getElementById("saveGame"), "click", saveGame);
 	attachEvent(document.getElementById("saveName"), "click", saveName);
 	attachEvent(document.getElementById("newGame"), "click", newGame);
+	attachEvent(document.getElementById("cancel"), "click", cancel);
+	
+	
+	if(localStorage.playerName)
+	{ 
+    playerName = JSON.parse(localStorage.getItem("playerName"));
+    document.getElementById("playerName").innerHTML = "Welcome " + playerName;
+    //alert("Welcome back " + playerName + "!"); 
+	}
     
     
 }
 
-function saveName()
+function save()
 {
-	var name = document.getElementById("playerName");
-	
+	var name = document.getElementById("name");
+	document.getElementById("playerName").innerHTML = "Welcome\n  " + name.value;
 	if(!localStorage.playerName)
 	{
 		localStorage.setItem("playerName", JSON.stringify([name.value]));
@@ -98,6 +99,37 @@ function saveName()
 	{
 		localStorage.playerName = JSON.stringify([name.value]);
 	}
+		$('#subName').animate({marginTop:-80}, 600);
+		$('#subName').hide();
+		$('#saveName').show();
+		$('#saveName').animate({marginTop:-70}, 500);
+	
+	name.value = "Enter Name...";
+}
+
+function cancel()
+{
+	
+		$('#subName').animate({marginTop:-80}, 600);
+		
+		$('#saveName').show();
+		$('#saveName').animate({marginTop:-70}, 500);
+		$('#subName').hide();
+		
+		document.getElementById("name").value = "Enter Name...";
+}
+	
+	
+
+function saveName()
+{
+		
+	$('#saveName').animate({marginTop:-200}, 600);
+	$('#saveName').hide();
+	$('#subName').show();	
+	$('#subName').animate({marginTop:0}, 600);
+	
+	
 	
 }
 
@@ -235,9 +267,9 @@ function R(a)
 		{
 			document.getElementById("flip-front").innerHTML = "<h1>YOU LOSE!!!!</h1>";
 			boo.play();
-			var reset = document.getElementById("button_holder");
-			var button = '<button onclick="newGame()" id="resetButton">START OVER!!!</button>';
-			reset.innerHTML = button;
+			//var reset = document.getElementById("button_holder");
+			//var button = '<button onclick="newGame()" id="resetButton">START OVER!!!</button>';
+			//reset.innerHTML = button;
 			
 		}
 	
@@ -278,8 +310,8 @@ function displayDeck()
     {
         // take out a random element from the cards on the deck
        var card = R(deck);
-        deckArea +='<div class="w" onclick="Flip(this)"> <div class="cardfront"><img id="icon" src="static/'+card[0]+'"/><div id="cardNum">'
-            +card[1]+'</div><img id="icon2" src="static/'+card[0]+'"/></div><div class="cardback"><img id="cardlogo" src="static/cardback.png" /></div></div>'
+        deckArea +='<div class="w" onclick="Flip(this)"> <div class="cardfront"><img id="icon" src="static/img/'+card[0]+'"/><div id="cardNum">'
+            +card[1]+'</div><img id="icon2" src="static/img/'+card[0]+'"/></div><div class="cardback"><img id="cardlogo" src="static/img/cardback.png" /></div></div>'
     }
     // add it to the DOM
 	

@@ -1,23 +1,45 @@
 <!DOCTYPE html>
 
-<!--manifest={{ url_for('static', filename='offline.manifest') }} type="text/cache-manifest" -->
+<!-- manifest={{ url_for('static', filename='offline.manifest') }} type="text/cache-manifest" -->
 <html lang="en" >
 <head>
     <meta charset="utf-8" />
     <title>Memory Game</title>
-        <script src="{{ url_for('static', filename='memory.js') }}"></script>
-        <link rel="stylesheet" type"text/css" href="{{ url_for('static', filename='style.css') }}"/>
+        <script src="static/memory.js"></script>
+		<script src="static/jquery.js"></script>
+		<script src="static/nav.js"></script>
+        <link rel="stylesheet" type"text/css" href="static/memory.css"/>
 </head>
+
 <body>
-<div id="save_row">
-<input value="Player Name" id="playerName" type="text"> 
-<input type="button" class="save" id="saveName" value="Update Player Name"> 
-<input type="button" class="save" id="saveGame" value="Save Game">
-<input type="button" class="load" id="newGame" value="New Game">
-</div>
-        
+<ul id="navigation">
+			<li ><a id="playerName"> </a></li>
+            
+					
+            <li id="save"><a id="saveGame" title="Save Game">Save Game</a></li>
+            <li id="save"><a id="newGame" title="New Game">New Game</a></li>
+			<li id="username">
+				<div id="subName" style="display:none;">
+					<input type="text" id="name"  value="Enter Name..." onfocus="if (this.value == 'Enter Name...') 
+					{this.value = '';}" onblur="if (this.value == '') {this.value = 'Enter Name...';}">
+					<div id="buttons">
+						<input class="button" type="button" id="saveNameButton" name="save" value="Save">
+						<input class="button" type="button" id="cancel" name="cancel" value="Cancel">
+					</div>
+				</div>
+			</li>
+			
+			
+			<li>
+				<a id="saveName" title="Update Player Name">Update Name</a>
+			</li>
+			            
+        </ul>
+
+    
 
 <div class="clear"></div>
+<div id = "content">
 <div class="flipper">
 
     <div id="flip-front"><h1>Memory Card Game</h1></div>
@@ -30,8 +52,7 @@
 <br>	
 <div id="game"></div>
 <div class="clear"></div>
-<br>
-<div id="button_holder"></div>
+</div>
 
 </body>
 </html>
