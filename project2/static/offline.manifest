@@ -4,16 +4,22 @@ CACHE:
 
 memory.css
 memory.js
-cardback.png
-club.png
-heart.png
-diamond.png
-spade.png
-finish.ogg
-flip_card.ogg
-applause.ogg
-boo.ogg
-match.ogg
+nav.js
+jquery.js
+
+img/cardback.png
+img/club.png
+img/heart.png
+img/diamond.png
+img/spade.png
+img/item.png
+
+sound/finish.ogg
+sound/flip_card.ogg
+sound/applause.ogg
+sound/boo.ogg
+sound/match.ogg
+
 
 
 

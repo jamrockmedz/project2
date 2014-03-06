@@ -82,7 +82,9 @@ function setup()
     playerName = JSON.parse(localStorage.getItem("playerName"));
     document.getElementById("playerName").innerHTML = "Welcome " + playerName;
     //alert("Welcome back " + playerName + "!"); 
-	}
+  }else{
+      document.getElementById("playerName").innerHTML = "Welcome!!";  
+  }
     
     
 }
